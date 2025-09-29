@@ -23,11 +23,11 @@ const fadeUp = {
   viewport: { once: true, amount: 0.2 },
 };
 
-function Stat({ label, value }: { label: string; value: string }) {
+function Stat({ label, value, compact = false, inline = false }: { label: string; value: string; compact?: boolean; inline?: boolean }) {
   return (
-    <div className="rounded-lg border border-white/10 bg-panel/60 p-3 sm:p-4 backdrop-blur-sm">
-      <div className="text-lg sm:text-xl md:text-2xl font-semibold text-white">{value}</div>
-      <div className="text-xs sm:text-sm text-zinc-400 leading-tight">{label}</div>
+    <div className={`rounded-lg border border-white/10 bg-panel/60 ${inline ? "p-1.5" : compact ? "p-2" : "p-3 sm:p-4"} backdrop-blur-sm`}>
+      <div className={`${inline ? "text-sm" : compact ? "text-base sm:text-lg" : "text-lg sm:text-xl md:text-2xl"} font-semibold text-white`}>{value}</div>
+      <div className={`${inline ? "text-[9px]" : compact ? "text-[10px] sm:text-xs" : "text-xs sm:text-sm"} text-zinc-400 leading-tight`}>{label}</div>
     </div>
   );
 }
@@ -85,7 +85,7 @@ function CTAButtons() {
   return (
     <div className="flex flex-col sm:flex-row gap-3">
       <Link href="#contact" className="focus-ring shine inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 sm:px-5 py-3 text-black font-medium hover:bg-[var(--gold-600)] transition-colors text-sm sm:text-base">
-        Start Tokenizing <ArrowRight className="h-4 w-4" />
+        Get Started <ArrowRight className="h-4 w-4" />
       </Link>
       <Link href="#how" className="focus-ring inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-transparent px-4 sm:px-5 py-3 text-white hover:bg-white/5 text-sm sm:text-base">
         See How It Works
@@ -122,7 +122,7 @@ function MobileNav({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
           className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors"
           onClick={onClose}
         >
-          Start Tokenizing
+          Get Started
         </Link>
       </div>
     </motion.div>
@@ -143,7 +143,7 @@ function StickyMobileCTA() {
     <div className={`fixed inset-x-0 bottom-3 z-50 px-4 transition ${show ? "opacity-100" : "pointer-events-none opacity-0"} md:hidden`}>
       <div className="mx-auto max-w-screen-sm rounded-full border border-white/10 bg-panel/80 p-2 backdrop-blur supports-[backdrop-filter]:bg-panel/60">
         <Link href="#contact" className="shine focus-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-black font-semibold">
-          Start Tokenizing <ArrowRight className="h-4 w-4" />
+          Get Started <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
     </div>
@@ -164,7 +164,7 @@ export default function Home() {
               <Link href="#how" className="hover:text-gold transition-colors">How it Works</Link>
               <Link href="#contact" className="hover:text-gold transition-colors">Contact</Link>
               <Link href="#contact" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
-                Start Tokenizing
+                Get Started
               </Link>
             </nav>
             <button
@@ -183,7 +183,7 @@ export default function Home() {
         {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-20" />
-        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-20 pb-16 md:pt-28 md:pb-24">
+        <div className="relative mx-auto max-w-7xl px-4 sm:px-6 pt-20 pb-14 md:pt-28 md:pb-20">
           <motion.div {...fadeUp}>
             <div className="mb-4 flex flex-wrap gap-2 text-xs sm:text-sm text-zinc-400">
               <span>Regulatory-aligned</span>
@@ -198,52 +198,66 @@ export default function Home() {
             <p className="mt-4 max-w-2xl text-sm sm:text-base text-zinc-300">
               OWN Lab is the end-to-end platform for issuing, managing, and trading tokenized RWAs—built for Islamic finance hubs and global capital connectivity.
             </p>
+            {/* Supported Asset Classes — moved higher for visibility */}
+            <motion.div 
+              className="mt-5 sm:mt-6"
+              {...fadeUp}
+            >
+              <div className="mb-2 text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400">Supported asset classes</div>
+              <div className="flex gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-visible whitespace-nowrap md:whitespace-normal pb-1">
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
+                  <Banknote className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
+                  <span>Private Credit</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
+                  <Building2 className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
+                  <span>Real Estate</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
+                  <Landmark className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
+                  <span>Treasuries</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
+                  <Coins className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
+                  <span>Commodities</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
+                  <LineChart className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
+                  <span>Stocks</span>
+                </div>
+                <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
+                  <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
+                  <span>Carbon / ESG</span>
+                </div>
+              </div>
+            </motion.div>
             <div className="mt-6 sm:mt-8">
-              <CTAButtons />
+              {/* Desktop/tablet: buttons left, compact metrics inline to the right */}
+              <div className="hidden md:flex items-center justify-between gap-6">
+                <div className="justify-self-start">
+                  <CTAButtons />
+                </div>
+                <div className="flex items-center gap-2">
+                  <Stat inline value="9+" label="jurisdictions via partner regulatory footprint" />
+                  <Stat inline value="$50M" label="AUM Year-1 target" />
+                </div>
+              </div>
+              {/* Mobile: buttons first, compact metrics inline below */}
+              <div className="md:hidden">
+                <CTAButtons />
+                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2">
+                  <Stat inline value="9+" label="jurisdictions via partner regulatory footprint" />
+                  <Stat inline value="$50M" label="AUM Year-1 target" />
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>
       </section>
 
-      {/* Metrics */}
-      <section aria-label="Key metrics" className="border-t border-white/5 bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10">
-          <motion.div className="grid grid-cols-2 gap-3 sm:gap-4 md:grid-cols-4" {...fadeUp}>
-            <Stat value="9+" label="jurisdictions via partner regulatory footprint" />
-            <Stat value="2–6 weeks" label="issuer onboarding pipeline" />
-            <Stat value="$50M" label="AUM Year-1 target" />
-            <Stat value="MENA & SEA" label="first; global next" />
-          </motion.div>
-          <p className="mt-4 text-center text-xs sm:text-sm text-zinc-400">
-            Built for issuers, banks, family offices, and compliant retail.
-          </p>
-        </div>
-      </section>
-
-      {/* Strategic Positioning */}
-      <section className="border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-          <SectionHeading title="World's first Shariah-compliant, end-to-end tokenization platform" />
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
-            <motion.ul className="space-y-3 sm:space-y-4 text-sm sm:text-base text-zinc-300" {...fadeUp}>
-              <li>Shariah compliance leadership (advisory board, AAOIFI/IFSB alignment)</li>
-              <li>Full lifecycle: pre-tokenization → issuance → compliance → secondary liquidity</li>
-              <li>Regulatory stronghold: leverage DIFC/VARA/MAS pathways & partner licenses</li>
-              <li>Liquidity creation: native marketplace roadmap (DEX + connectors)</li>
-            </motion.ul>
-            <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4" {...fadeUp}>
-              <IconCard icon={ShieldCheck} title="Shariah-first" desc="Governance and screening baked in." />
-              <IconCard icon={Layers} title="One-stop stack" desc="From structure to secondary." />
-              <IconCard icon={Banknote} title="Regulatory-aligned" desc="Operate on compliant rails." />
-              <IconCard icon={LineChart} title="Liquidity-oriented" desc="Designed for distribution and trading." />
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
       {/* How It Works */}
       <section id="how" className="border-t border-white/5 bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 md:py-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:py-14">
           <motion.div {...fadeUp}>
           <SectionHeading title="How It Works" />
             <p className="mb-8 sm:mb-12 text-center text-sm sm:text-base text-zinc-400 max-w-2xl mx-auto">
@@ -378,82 +392,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Asset Classes */}
-      <section className="border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-          <SectionHeading title="Asset Classes" />
-          <motion.div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-3" {...fadeUp}>
-            <IconCard icon={Banknote} title="Private Credit / Sukuk-style yield" desc="Highest near-term adoption; enterprise pilots." />
-            <IconCard icon={Building2} title="Real Estate" desc="Fractional CRE/REIT-style, ijara/musharakah structures." />
-            <IconCard icon={Landmark} title="Treasuries / Cash Equivalents" desc="Tokenized liquidity products (select markets)." />
-            <IconCard icon={Coins} title="Commodities (Gold)" desc="Shariah-certified bullion tokens with vault partners." />
-            <IconCard icon={LineChart} title="Stocks (screened baskets)" desc="Shariah-screened equity exposures via partners." />
-            <IconCard icon={Sparkles} title="Carbon / ESG (optional)" desc="On-chain provenance as standards mature." />
-          </motion.div>
-          <p className="mt-4 text-xs sm:text-sm text-zinc-400">Each card: 1-line benefit, "Learn more".</p>
-        </div>
-      </section>
 
-      {/* For Whom */}
-      <section className="border-t border-white/5 bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-          <SectionHeading title="Built for Issuers & Investors" />
+      
+
+
+      {/* Strategic Positioning */}
+      <section className="border-t border-white/5">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:py-14">
+          <SectionHeading title="World's first Shariah-compliant, end-to-end tokenization platform" />
           <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
-            <motion.div {...fadeUp}>
-              <h3 className="font-display text-lg sm:text-xl text-white">Issuers</h3>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm sm:text-base text-zinc-300">
-                <li>Real-estate developers, sukuk originators, commodity firms, banks, sovereigns</li>
-              </ul>
-              <p className="mt-2 text-xs sm:text-sm text-zinc-400">Value: Faster onboarding (2–6 weeks), turnkey legal/shariah, distribution, reporting.</p>
-            </motion.div>
-            <motion.div {...fadeUp}>
-              <h3 className="font-display text-lg sm:text-xl text-white">Investors</h3>
-              <ul className="mt-2 list-disc space-y-1 pl-5 text-sm sm:text-base text-zinc-300">
-                <li>Islamic banks/wealth, family offices, compliant retail, crypto-natives</li>
-              </ul>
-              <p className="mt-2 text-xs sm:text-sm text-zinc-400">Value: Ethical access, yield opportunities, regulated rails, on-chain transparency.</p>
+            <motion.ul className="space-y-3 sm:space-y-4 text-sm sm:text-base text-zinc-300" {...fadeUp}>
+              <li>Shariah compliance leadership (advisory board, AAOIFI/IFSB alignment)</li>
+              <li>Full lifecycle: pre-tokenization → issuance → compliance → secondary liquidity</li>
+              <li>Regulatory stronghold: leverage DIFC/VARA/MAS pathways & partner licenses</li>
+              <li>Liquidity creation: native marketplace roadmap (DEX + connectors)</li>
+            </motion.ul>
+            <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4" {...fadeUp}>
+              <IconCard icon={ShieldCheck} title="Shariah-first" desc="Governance and screening baked in." />
+              <IconCard icon={Layers} title="One-stop stack" desc="From structure to secondary." />
+              <IconCard icon={Banknote} title="Regulatory-aligned" desc="Operate on compliant rails." />
+              <IconCard icon={LineChart} title="Liquidity-oriented" desc="Designed for distribution and trading." />
             </motion.div>
           </div>
+
+          
         </div>
       </section>
 
-      {/* Regulatory & Trust */}
-      <section className="border-t border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-          <SectionHeading title="Regulatory & Shariah" />
-          <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
-            <motion.div {...fadeUp}>
-              <h3 className="font-display text-lg sm:text-xl text-white">Regulatory Moat</h3>
-              <p className="mt-2 text-sm sm:text-base text-zinc-300">Leverage partner coverage in 9 jurisdictions; target DIFC/VARA/MAS; audits, custody, reporting standards.</p>
-              <p className="mt-2 text-xs sm:text-sm text-zinc-400">Timeline: Pakistan SECP sandbox → GCC → Malaysia → global connectors.</p>
-            </motion.div>
-            <motion.div {...fadeUp}>
-              <h3 className="font-display text-lg sm:text-xl text-white">Shariah Governance</h3>
-              <p className="mt-2 text-sm sm:text-base text-zinc-300">Board setup, certification process, ongoing screening; template-based structures.</p>
-            </motion.div>
-          </div>
-        </div>
-      </section>
 
-      {/* Feature Stack */}
-      <section className="border-t border-white/5 bg-muted/50">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16">
-          <SectionHeading title="Platform Features" />
-          <motion.div className="grid gap-3 sm:gap-4 sm:grid-cols-2 lg:grid-cols-4" {...fadeUp}>
-            <IconCard icon={Layers} title="White-label issuer portal" desc="Launch with enterprise-grade controls." />
-            <IconCard icon={Sparkles} title="Tokenization SDKs" desc="Standardized issuance smart contracts." />
-            <IconCard icon={ShieldCheck} title="Compliance APIs" desc="KYC/AML/Travel Rule integrations." />
-            <IconCard icon={LineChart} title="Investor dashboards" desc="Real-time analytics and reporting." />
-            <IconCard icon={Banknote} title="Custody/WaaS" desc="Firewalled, whitelisted wallets." />
-            <IconCard icon={Coins} title="Secondary connectors" desc="Pathways to compliant liquidity." />
-            <IconCard icon={Landmark} title="Marketplace roadmap" desc="Native venue for distribution." />
-          </motion.div>
-        </div>
-      </section>
+
+      
+
+      
 
       {/* CTA Band */}
       <section id="contact" className="border-y border-white/5">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-12 sm:py-16 text-center">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:py-14 text-center">
           <h3 className="font-display text-xl sm:text-2xl md:text-3xl">Bring your next asset on-chain—safely and fast.</h3>
           <p className="mt-2 text-xs sm:text-sm text-zinc-400">Enterprise pricing tailored by asset class and jurisdiction.</p>
           <div className="mt-6 flex justify-center">
