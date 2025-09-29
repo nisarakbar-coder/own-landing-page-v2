@@ -457,22 +457,11 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-muted/60">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-8 sm:py-10">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 sm:gap-6">
-            <nav aria-label="Footer" className="flex flex-wrap gap-3 sm:gap-4 text-xs sm:text-sm text-zinc-400">
-              <Link href="#" className="hover:text-white">Solutions</Link>
-              <Link href="#how" className="hover:text-white">How it Works</Link>
-              <Link href="#" className="hover:text-white">Compliance</Link>
-              <Link href="#" className="hover:text-white">Docs</Link>
-              <Link href="#contact" className="hover:text-white">Contact</Link>
-            </nav>
-          </div>
+          
           
           <div className="mt-4 sm:mt-6 pt-4 sm:pt-6 border-t border-white/5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 sm:gap-4 text-xs text-zinc-500">
             <span>© {new Date().getFullYear()} OWN Lab. All rights reserved.</span>
-            <div className="flex gap-3">
-              <Link aria-label="Twitter" href="#" className="hover:text-white">X</Link>
-              <Link aria-label="LinkedIn" href="#" className="hover:text-white">LinkedIn</Link>
-            </div>
+           
           </div>
         </div>
       </footer>
