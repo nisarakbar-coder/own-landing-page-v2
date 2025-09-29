@@ -1,26 +1,82 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #0a0a0a;
+  --foreground: #e7e7e7;
+  --muted: #0f0f10;
+  --panel: #0b0b0c;
+  --gold: #f5b544;
+  --gold-600: #e6a73b;
+  --gold-700: #d3962f;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-panel: var(--panel);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-space-grotesk);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
 }
 
 body {
-  background: var(--background);
+  background: radial-gradient(1200px 800px at 50% -10%, rgba(245, 181, 68, 0.08), transparent 60%),
+    radial-gradient(800px 600px at 90% 10%, rgba(245, 181, 68, 0.06), transparent 60%),
+    radial-gradient(1000px 600px at 10% 20%, rgba(255, 255, 255, 0.04), transparent 60%),
+    var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+}
+
+.bg-grid {
+  background-image: linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background-size: 24px 24px, 24px 24px;
+  background-position: 0 0, 0 0;
+}
+
+.heading-underline {
+  position: relative;
+}
+.heading-underline::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -8px;
+  height: 2px;
+  width: 96px;
+  background: linear-gradient(90deg, var(--gold), rgba(245,181,68,0) 80%);
+  filter: drop-shadow(0 0 8px rgba(245,181,68,0.5));
+}
+
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+.shine::before {
+  content: "";
+  position: absolute;
+  top: -50%;
+  left: -75%;
+  width: 50%;
+  height: 200%;
+  transform: rotate(25deg);
+  background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,0.15), rgba(255,255,255,0));
+  transition: transform 0.7s ease;
+}
+.shine:hover::before {
+  transform: translateX(250%) rotate(25deg);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
 }
