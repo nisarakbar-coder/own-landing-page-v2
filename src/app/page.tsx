@@ -85,7 +85,7 @@ function CTAButtons({ showMetrics }: { showMetrics: boolean }) {
   return (
     <div className="flex flex-col items-center gap-3">
     <div className="flex flex-col sm:flex-row gap-3">
-      <Link href="#contact" className="focus-ring shine inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 sm:px-5 py-3 text-black font-medium hover:bg-[var(--gold-600)] transition-colors text-sm sm:text-base">
+      <Link href="#why-choose-us" className="focus-ring shine inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 sm:px-5 py-3 text-black font-medium hover:bg-[var(--gold-600)] transition-colors text-sm sm:text-base">
           Get Started <ArrowRight className="h-4 w-4" />
       </Link>
       <Link href="#how" className="focus-ring inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-transparent px-4 sm:px-5 py-3 text-white hover:bg-white/5 text-sm sm:text-base">
@@ -125,14 +125,14 @@ function MobileNav({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
           How it Works
         </Link>
         <Link 
-          href="#contact" 
+          href="#why-choose-us" 
           className="block text-white hover:text-gold transition-colors"
           onClick={onClose}
         >
-          Contact
+          Why Choose Us
         </Link>
         <Link 
-          href="#contact" 
+          href="#why-choose-us" 
           className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors"
           onClick={onClose}
         >
@@ -156,7 +156,7 @@ function StickyMobileCTA() {
   return (
     <div className={`fixed inset-x-0 bottom-3 z-50 px-4 transition ${show ? "opacity-100" : "pointer-events-none opacity-0"} md:hidden`}>
       <div className="mx-auto max-w-screen-sm rounded-full border border-white/10 bg-panel/80 p-2 backdrop-blur supports-[backdrop-filter]:bg-panel/60">
-        <Link href="#contact" className="shine focus-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-black font-semibold">
+        <Link href="#why-choose-us" className="shine focus-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-black font-semibold">
           Get Started <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -197,8 +197,8 @@ export default function Home() {
             <Logo size="sm" />
             <nav className="hidden md:flex items-center gap-6 text-sm">
               <Link href="#how" className={`transition-colors ${activeSection === 'how' ? 'text-gold' : 'hover:text-gold'}`}>How it Works</Link>
-              <Link href="#contact" className="hover:text-gold transition-colors">Contact</Link>
-              <Link href="#contact" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
+              <Link href="#why-choose-us" className="hover:text-gold transition-colors">Why Choose Us</Link>
+              <Link href="#why-choose-us" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
                 Get Started
               </Link>
             </nav>
@@ -414,16 +414,16 @@ export default function Home() {
       
 
 
-      {/* Strategic Positioning */}
-      <section className="border-t border-white/5">
+      {/* Why Choose Us */}
+      <section id="why-choose-us" className="border-t border-white/5">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 py-10 sm:py-12 md:py-14">
-          <SectionHeading title="World's first Shariah-compliant, end-to-end tokenization platform" />
+          <SectionHeading title="Why Choose Us" />
           <div className="grid gap-6 sm:gap-8 md:grid-cols-2">
             <motion.ul className="space-y-3 sm:space-y-4 text-sm sm:text-base text-zinc-300" {...fadeUp}>
-              <li>Shariah compliance leadership (advisory board, AAOIFI/IFSB alignment)</li>
-              <li>Full lifecycle: pre-tokenization → issuance → compliance → secondary liquidity</li>
-              <li>Regulatory stronghold: leverage DIFC/VARA/MAS pathways & partner licenses</li>
-              <li>Liquidity creation: native marketplace roadmap (DEX + connectors)</li>
+              <li>First-mover advantage in Shariah-compliant tokenization with proven regulatory pathways</li>
+              <li>End-to-end platform eliminates integration complexity and reduces time-to-market</li>
+              <li>Built-in compliance automation reduces operational overhead and regulatory risk</li>
+              <li>Institutional-grade security and custody with multi-jurisdictional regulatory coverage</li>
             </motion.ul>
             <motion.div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4" {...fadeUp}>
               <IconCard icon={ShieldCheck} title="Shariah-first" desc="Governance and screening baked in." />
