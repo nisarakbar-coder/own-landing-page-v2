@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight, ShieldCheck, Sparkles, Building2, Landmark, Coins, LineChart, Banknote, Layers } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles, Building2, Landmark, Coins, LineChart, Banknote, Layers, Search, FileText, Zap, Users, Shield, Wallet, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Logo, LogoIcon } from "@/components/Logo";
@@ -21,7 +21,6 @@ const fadeUp = {
   initial: { opacity: 0, y: 24 },
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, amount: 0.2 },
-  transition: { duration: 0.6, ease: [0.21, 0.47, 0.32, 0.98] },
 };
 
 function Stat({ label, value }: { label: string; value: string }) {
@@ -45,14 +44,39 @@ function IconCard({ icon: Icon, title, desc }: { icon: any; title: string; desc:
   );
 }
 
-function Step({ num, title, desc }: { num: number; title: string; desc: string }) {
+function Step({ num, title, desc, icon: Icon, isLast = false }: { num: number; title: string; desc: string; icon: any; isLast?: boolean }) {
   return (
-    <div className="relative rounded-lg border border-white/10 bg-panel/60 p-5">
-      <div className="mb-2 flex items-center gap-2 text-gold">
-        <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-gold/15 text-[11px] font-semibold text-gold">{num}</span>
-        <span className="font-medium text-white">{title}</span>
+    <div className="relative group">
+      <motion.div 
+        className="relative rounded-xl border border-white/10 bg-panel/60 p-6 backdrop-blur-sm hover:border-gold/30 hover:bg-panel/80 transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-gold/10"
+        whileHover={{ y: -4 }}
+        transition={{ duration: 0.2 }}
+      >
+        <div className="mb-4 flex items-center gap-3">
+          <div className="relative">
+            <div className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-gold/20 to-gold/10 border border-gold/20">
+              <Icon className="h-5 w-5 text-gold" />
+            </div>
+            <div className="absolute -top-1 -right-1 inline-flex h-6 w-6 items-center justify-center rounded-full bg-gold text-[10px] font-bold text-black">
+              {num}
+            </div>
+          </div>
+          <div>
+            <h3 className="font-semibold text-white text-lg">{title}</h3>
+          </div>
+        </div>
+        <p className="text-sm text-zinc-400 leading-relaxed">{desc}</p>
+        
+        {/* Hover glow effect */}
+        <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-gold/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
+      </motion.div>
+      
+      {/* Connecting line to next step */}
+      {!isLast && (
+        <div className="hidden lg:block absolute top-1/2 -right-4 w-8 h-0.5 bg-gradient-to-r from-gold/60 to-gold/20 transform -translate-y-1/2 z-10">
+          <div className="absolute right-0 top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-[6px] border-l-gold/60 border-t-[3px] border-t-transparent border-b-[3px] border-b-transparent" />
       </div>
-      <p className="text-sm text-zinc-400">{desc}</p>
+      )}
     </div>
   );
 }
@@ -174,17 +198,138 @@ export default function Home() {
 
       {/* How It Works */}
       <section id="how" className="border-t border-white/5 bg-muted/50">
-        <div className="mx-auto max-w-7xl px-6 py-16">
+        <div className="mx-auto max-w-7xl px-6 py-20">
+          <motion.div {...fadeUp}>
           <SectionHeading title="How It Works" />
-          <motion.ol className="grid gap-4 md:grid-cols-3 lg:grid-cols-4" {...fadeUp}>
-            <Step num={1} title="Discover & Diligence" desc="Asset screening, docs intake." />
-            <Step num={2} title="Structure" desc="Legal + Shariah review, templates." />
-            <Step num={3} title="Tokenize" desc="Issuance SDKs, smart contracts, custody." />
-            <Step num={4} title="Distribute" desc="Institutional & compliant retail channels." />
-            <Step num={5} title="Comply" desc="KYC/AML/Travel Rule, reporting." />
-            <Step num={6} title="Settle & Custody" desc="Firewalled, whitelisted wallets." />
-            <Step num={7} title="Trade & Monitor" desc="Secondary liquidity, dashboards." />
-          </motion.ol>
+            <p className="mb-12 text-center text-zinc-400 max-w-2xl mx-auto">
+              From asset discovery to secondary trading, our end-to-end platform handles every step of the tokenization process with Shariah compliance and regulatory alignment.
+            </p>
+          </motion.div>
+          
+          <div className="relative">
+            {/* Process flow line for desktop */}
+            <div className="hidden lg:block absolute top-1/2 left-0 right-0 h-0.5 bg-gradient-to-r from-gold/20 via-gold/40 to-gold/20 transform -translate-y-1/2 z-0" />
+            
+            <motion.div 
+              className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 relative z-10"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.8, staggerChildren: 0.1 }}
+            >
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6 }}
+              >
+                <Step 
+                  num={1} 
+                  title="Discover & Diligence" 
+                  desc="Comprehensive asset screening and documentation intake with automated compliance checks." 
+                  icon={Search}
+                  isLast={false}
+                />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6, delay: 0.1 }}
+              >
+                <Step 
+                  num={2} 
+                  title="Structure" 
+                  desc="Legal and Shariah review with standardized templates and governance frameworks." 
+                  icon={FileText}
+                  isLast={false}
+                />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6, delay: 0.2 }}
+              >
+                <Step 
+                  num={3} 
+                  title="Tokenize" 
+                  desc="Smart contract deployment, custody setup, and secure token issuance on blockchain." 
+                  icon={Zap}
+                  isLast={false}
+                />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6, delay: 0.3 }}
+              >
+                <Step 
+                  num={4} 
+                  title="Distribute" 
+                  desc="Multi-channel distribution to institutional and compliant retail investors." 
+                  icon={Users}
+                  isLast={false}
+                />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6, delay: 0.4 }}
+              >
+                <Step 
+                  num={5} 
+                  title="Comply" 
+                  desc="Automated KYC/AML/Travel Rule compliance with real-time reporting." 
+                  icon={Shield}
+                  isLast={false}
+                />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6, delay: 0.5 }}
+              >
+                <Step 
+                  num={6} 
+                  title="Settle & Custody" 
+                  desc="Secure settlement with firewalled, whitelisted institutional-grade custody." 
+                  icon={Wallet}
+                  isLast={false}
+                />
+              </motion.div>
+              
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }} 
+                whileInView={{ opacity: 1, y: 0 }} 
+                transition={{ duration: 0.6, delay: 0.6 }}
+              >
+                <Step 
+                  num={7} 
+                  title="Trade & Monitor" 
+                  desc="Secondary market liquidity with comprehensive analytics and monitoring dashboards." 
+                  icon={TrendingUp}
+                  isLast={true}
+                />
+              </motion.div>
+            </motion.div>
+          </div>
+          
+          {/* Process summary */}
+          <motion.div 
+            className="mt-16 text-center"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.8 }}
+          >
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/10 border border-gold/20 text-gold text-sm font-medium">
+              <ShieldCheck className="h-4 w-4" />
+              End-to-end Shariah-compliant process
+            </div>
+          </motion.div>
         </div>
       </section>
 
