@@ -25,21 +25,21 @@ const fadeUp = {
 
 function Stat({ label, value, compact = false, inline = false }: { label: string; value: string; compact?: boolean; inline?: boolean }) {
   return (
-    <div className={`rounded-lg border border-white/10 bg-panel/60 ${inline ? "p-1.5" : compact ? "p-2" : "p-3 sm:p-4"} backdrop-blur-sm`}>
-      <div className={`${inline ? "text-sm" : compact ? "text-base sm:text-lg" : "text-lg sm:text-xl md:text-2xl"} font-semibold text-white`}>{value}</div>
-      <div className={`${inline ? "text-[9px]" : compact ? "text-[10px] sm:text-xs" : "text-xs sm:text-sm"} text-zinc-400 leading-tight`}>{label}</div>
+    <div className={`rounded-lg border border-white/10 bg-panel/60 ${inline ? "p-2" : compact ? "p-2" : "p-3 sm:p-4"} backdrop-blur-sm hover:border-gold/20 transition-colors`}>
+      <div className={`${inline ? "text-lg font-bold text-gold" : compact ? "text-base sm:text-lg" : "text-lg sm:text-xl md:text-2xl"} font-semibold text-white`}>{value}</div>
+      <div className={`${inline ? "text-[10px] leading-tight" : compact ? "text-[10px] sm:text-xs" : "text-xs sm:text-sm"} text-zinc-400 leading-tight`}>{label}</div>
     </div>
   );
 }
 
 function IconCard({ icon: Icon, title, desc }: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string }) {
   return (
-    <div className="shine group rounded-xl border border-white/10 bg-panel/60 p-4 sm:p-5 hover:translate-y-[-2px] transition-transform">
-      <div className="mb-3 inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-md bg-muted text-gold">
+    <div className="shine group rounded-xl border border-white/10 bg-panel/50 p-4 sm:p-5 md:hover:translate-y-[-2px] md:hover:shadow-lg md:hover:shadow-gold/10 transition-all duration-300">
+      <div className="mb-3 inline-flex h-8 w-8 sm:h-10 sm:w-10 items-center justify-center rounded-md bg-muted/60 text-gold">
         <Icon className="h-4 w-4 sm:h-5 sm:w-5" />
       </div>
-      <div className="font-medium text-white text-sm sm:text-base">{title}</div>
-      <div className="text-xs sm:text-sm text-zinc-400 leading-relaxed">{desc}</div>
+      <div className="font-semibold text-white text-sm sm:text-base mb-1">{title}</div>
+      <div className="text-xs sm:text-sm text-zinc-300 leading-snug">{desc}</div>
     </div>
   );
 }
@@ -81,15 +81,29 @@ function Step({ num, title, desc, icon: Icon, isLast = false }: { num: number; t
   );
 }
 
-function CTAButtons() {
+function CTAButtons({ showMetrics }: { showMetrics: boolean }) {
   return (
+    <div className="flex flex-col items-center gap-3">
     <div className="flex flex-col sm:flex-row gap-3">
       <Link href="#contact" className="focus-ring shine inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 sm:px-5 py-3 text-black font-medium hover:bg-[var(--gold-600)] transition-colors text-sm sm:text-base">
-        Get Started <ArrowRight className="h-4 w-4" />
+          Get Started <ArrowRight className="h-4 w-4" />
       </Link>
       <Link href="#how" className="focus-ring inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-transparent px-4 sm:px-5 py-3 text-white hover:bg-white/5 text-sm sm:text-base">
         See How It Works
       </Link>
+      </div>
+      {showMetrics && (
+        <div className="flex items-center gap-4 text-xs text-zinc-400">
+        <span className="flex items-center gap-1">
+          <span className="text-gold font-semibold">9+</span>
+          <span>jurisdictions</span>
+        </span>
+        <span className="flex items-center gap-1">
+          <span className="text-gold font-semibold">$50M</span>
+          <span>Year-1 target</span>
+        </span>
+        </div>
+      )}
     </div>
   );
 }
@@ -152,6 +166,27 @@ function StickyMobileCTA() {
 
 export default function Home() {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { threshold: 0.3 }
+    );
+
+    const howSection = document.getElementById('how');
+    if (howSection) {
+      observer.observe(howSection);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <>
@@ -161,7 +196,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <Logo size="sm" />
             <nav className="hidden md:flex items-center gap-6 text-sm">
-              <Link href="#how" className="hover:text-gold transition-colors">How it Works</Link>
+              <Link href="#how" className={`transition-colors ${activeSection === 'how' ? 'text-gold' : 'hover:text-gold'}`}>How it Works</Link>
               <Link href="#contact" className="hover:text-gold transition-colors">Contact</Link>
               <Link href="#contact" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
                 Get Started
@@ -193,7 +228,7 @@ export default function Home() {
               <span>White-label ready</span>
             </div>
             <h1 className="font-display text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl leading-tight">
-              Tokenize Real-World Assets — Shariah-Compliant. Institution-Grade.
+              Tokenize Real-World Assets — <span className="bg-gradient-to-r from-gold to-yellow-300 bg-clip-text text-transparent font-bold">Shariah-Compliant</span>. Institution-Grade.
             </h1>
             <p className="mt-4 max-w-2xl text-sm sm:text-base text-zinc-300">
               OWN Lab is the end-to-end platform for issuing, managing, and trading tokenized RWAs—built for Islamic finance hubs and global capital connectivity.
@@ -204,7 +239,7 @@ export default function Home() {
               {...fadeUp}
             >
               <div className="mb-2 text-[10px] sm:text-xs uppercase tracking-widest text-zinc-400">Supported asset classes</div>
-              <div className="flex gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-visible whitespace-nowrap md:whitespace-normal pb-1">
+              <div className="flex gap-2 sm:gap-3 overflow-x-auto md:flex-wrap md:overflow-visible whitespace-nowrap md:whitespace-normal pb-1 scrollbar-hide" style={{maskImage: 'linear-gradient(to right, transparent 0%, black 20px, black calc(100% - 20px), transparent 100%)'}}>
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
                   <Banknote className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
                   <span>Private Credit</span>
@@ -224,7 +259,7 @@ export default function Home() {
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
                   <LineChart className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
                   <span>Stocks</span>
-                </div>
+              </div>
                 <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-panel/60 px-3 py-1.5 text-xs sm:text-sm text-zinc-200 hover:border-gold/30 hover:bg-gold/5 transition">
                   <Sparkles className="h-3.5 w-3.5 sm:h-4 sm:w-4 text-gold" />
                   <span>Carbon / ESG</span>
@@ -232,24 +267,7 @@ export default function Home() {
               </div>
             </motion.div>
             <div className="mt-6 sm:mt-8">
-              {/* Desktop/tablet: buttons left, compact metrics inline to the right */}
-              <div className="hidden md:flex items-center justify-between gap-6">
-                <div className="justify-self-start">
-                  <CTAButtons />
-                </div>
-                <div className="flex items-center gap-2">
-                  <Stat inline value="9+" label="jurisdictions via partner regulatory footprint" />
-                  <Stat inline value="$50M" label="AUM Year-1 target" />
-                </div>
-              </div>
-              {/* Mobile: buttons first, compact metrics inline below */}
-              <div className="md:hidden">
-                <CTAButtons />
-                <div className="mt-5 sm:mt-6 flex flex-wrap items-center gap-2">
-                  <Stat inline value="9+" label="jurisdictions via partner regulatory footprint" />
-                  <Stat inline value="$50M" label="AUM Year-1 target" />
-                </div>
-              </div>
+              <CTAButtons showMetrics={true} />
             </div>
           </motion.div>
         </div>
@@ -431,7 +449,7 @@ export default function Home() {
           <h3 className="font-display text-xl sm:text-2xl md:text-3xl">Bring your next asset on-chain—safely and fast.</h3>
           <p className="mt-2 text-xs sm:text-sm text-zinc-400">Enterprise pricing tailored by asset class and jurisdiction.</p>
           <div className="mt-6 flex justify-center">
-            <CTAButtons />
+            <CTAButtons showMetrics={false}  />
           </div>
         </div>
       </section>
