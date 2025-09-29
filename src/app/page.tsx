@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Building2, Landmark, Coins, LineChart, Banknote, Layers } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { Logo, LogoIcon } from "@/components/Logo";
 
 function SectionHeading({ title, eyebrow }: { title: string; eyebrow?: string }) {
   return (
@@ -92,8 +93,25 @@ function StickyMobileCTA() {
 
 export default function Home() {
   return (
-    <main className="relative">
-      {/* Hero */}
+    <>
+      {/* Header */}
+      <header className="fixed top-0 left-0 right-0 z-40 bg-background/80 backdrop-blur-md border-b border-white/5">
+        <div className="mx-auto max-w-7xl px-6 py-4">
+          <div className="flex items-center justify-between">
+            <Logo size="sm" />
+            <nav className="hidden md:flex items-center gap-6 text-sm">
+              <Link href="#how" className="hover:text-gold transition-colors">How it Works</Link>
+              <Link href="#contact" className="hover:text-gold transition-colors">Contact</Link>
+              <Link href="#contact" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
+                Start Tokenizing
+              </Link>
+            </nav>
+          </div>
+        </div>
+      </header>
+
+      <main className="relative">
+        {/* Hero */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-grid opacity-20" />
         <div className="relative mx-auto max-w-7xl px-6 pt-20 pb-16 md:pt-28 md:pb-24">
@@ -257,15 +275,20 @@ export default function Home() {
       {/* Footer */}
       <footer className="bg-muted/60">
         <div className="mx-auto max-w-7xl px-6 py-10">
-          <nav aria-label="Footer" className="flex flex-wrap gap-4 text-sm text-zinc-400">
-            <Link href="#" className="hover:text-white">Solutions</Link>
-            <Link href="#how" className="hover:text-white">How it Works</Link>
-            <Link href="#" className="hover:text-white">Compliance</Link>
-            <Link href="#" className="hover:text-white">Docs</Link>
-            <Link href="#contact" className="hover:text-white">Contact</Link>
-          </nav>
-          <div className="mt-4 flex items-center justify-between text-xs text-zinc-500">
-            <span>© {new Date().getFullYear()} OWN Lab</span>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+           
+            
+            <nav aria-label="Footer" className="flex flex-wrap gap-4 text-sm text-zinc-400">
+              <Link href="#" className="hover:text-white">Solutions</Link>
+              <Link href="#how" className="hover:text-white">How it Works</Link>
+              <Link href="#" className="hover:text-white">Compliance</Link>
+              <Link href="#" className="hover:text-white">Docs</Link>
+              <Link href="#contact" className="hover:text-white">Contact</Link>
+            </nav>
+          </div>
+          
+          <div className="mt-6 pt-6 border-t border-white/5 flex flex-col md:flex-row md:items-center md:justify-between gap-4 text-xs text-zinc-500">
+            <span>© {new Date().getFullYear()} OWN Lab. All rights reserved.</span>
             <div className="flex gap-3">
               <Link aria-label="Twitter" href="#" className="hover:text-white">X</Link>
               <Link aria-label="LinkedIn" href="#" className="hover:text-white">LinkedIn</Link>
@@ -275,6 +298,7 @@ export default function Home() {
       </footer>
 
       <StickyMobileCTA />
-    </main>
+      </main>
+    </>
   );
 }
