@@ -1,12 +1,9 @@
-import { ComponentType } from "react";
-
 interface LogoProps {
   className?: string;
   size?: "sm" | "md" | "lg";
-  variant?: "light" | "dark";
 }
 
-export function Logo({ className = "", size = "md", variant = "light" }: LogoProps) {
+export function Logo({ className = "", size = "md" }: LogoProps) {
   const textSizes = {
     sm: "text-lg",
     md: "text-xl", 

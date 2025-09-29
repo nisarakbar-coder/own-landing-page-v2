@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, ShieldCheck, Sparkles, Building2, Landmark, Coins, LineChart, Banknote, Layers, Search, FileText, Zap, Users, Shield, Wallet, TrendingUp } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { Logo, LogoIcon } from "@/components/Logo";
+import { Logo } from "@/components/Logo";
 
 function SectionHeading({ title, eyebrow }: { title: string; eyebrow?: string }) {
   return (
@@ -32,7 +32,7 @@ function Stat({ label, value }: { label: string; value: string }) {
   );
 }
 
-function IconCard({ icon: Icon, title, desc }: { icon: any; title: string; desc: string }) {
+function IconCard({ icon: Icon, title, desc }: { icon: React.ComponentType<{ className?: string }>; title: string; desc: string }) {
   return (
     <div className="shine group rounded-xl border border-white/10 bg-panel/60 p-5 hover:translate-y-[-2px] transition-transform">
       <div className="mb-3 inline-flex h-10 w-10 items-center justify-center rounded-md bg-muted text-gold">
@@ -44,7 +44,7 @@ function IconCard({ icon: Icon, title, desc }: { icon: any; title: string; desc:
   );
 }
 
-function Step({ num, title, desc, icon: Icon, isLast = false }: { num: number; title: string; desc: string; icon: any; isLast?: boolean }) {
+function Step({ num, title, desc, icon: Icon, isLast = false }: { num: number; title: string; desc: string; icon: React.ComponentType<{ className?: string }>; isLast?: boolean }) {
   return (
     <div className="relative group">
       <motion.div 
