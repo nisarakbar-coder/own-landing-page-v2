@@ -50,7 +50,7 @@ function CTAButtons({ showMetrics }: { showMetrics: boolean }) {
   return (
     <div className="flex flex-col items-center gap-3">
     <div className="flex flex-col sm:flex-row gap-3">
-      <Link href="#why-choose-us" className="focus-ring shine inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 sm:px-5 py-3 text-black font-medium hover:bg-[var(--gold-600)] transition-colors text-sm sm:text-base">
+      <Link href="http://ardglobal.app.n8n.cloud/form/65e79c2f-282f-4966-bde4-96a2a19e6c41" target="_blank" rel="noopener noreferrer" className="focus-ring shine inline-flex items-center justify-center gap-2 rounded-md bg-gold px-4 sm:px-5 py-3 text-black font-medium hover:bg-[var(--gold-600)] transition-colors text-sm sm:text-base">
           Get Started <ArrowRight className="h-4 w-4" />
       </Link>
       <Link href="#how" className="focus-ring inline-flex items-center justify-center gap-2 rounded-md border border-white/15 bg-transparent px-4 sm:px-5 py-3 text-white hover:bg-white/5 text-sm sm:text-base">
@@ -97,7 +97,9 @@ function MobileNav({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }
           Why Choose Us
         </Link>
         <Link 
-          href="#why-choose-us" 
+          href="http://ardglobal.app.n8n.cloud/form/65e79c2f-282f-4966-bde4-96a2a19e6c41" 
+          target="_blank" 
+          rel="noopener noreferrer"
           className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors"
           onClick={onClose}
         >
@@ -121,7 +123,7 @@ function StickyMobileCTA() {
   return (
     <div className={`fixed inset-x-0 bottom-3 z-50 px-4 transition ${show ? "opacity-100" : "pointer-events-none opacity-0"} md:hidden`}>
       <div className="mx-auto max-w-screen-sm rounded-full border border-white/10 bg-panel/80 p-2 backdrop-blur supports-[backdrop-filter]:bg-panel/60">
-        <Link href="#why-choose-us" className="shine focus-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-black font-semibold">
+        <Link href="http://ardglobal.app.n8n.cloud/form/65e79c2f-282f-4966-bde4-96a2a19e6c41" target="_blank" rel="noopener noreferrer" className="shine focus-ring inline-flex w-full items-center justify-center gap-2 rounded-full bg-gold px-5 py-3 text-black font-semibold">
           Get Started <ArrowRight className="h-4 w-4" />
         </Link>
       </div>
@@ -163,7 +165,7 @@ export default function Home() {
             <nav className="hidden md:flex items-center gap-6 text-sm">
               <Link href="#how" className={`transition-colors ${activeSection === 'how' ? 'text-gold' : 'hover:text-gold'}`}>How Tokenization Works</Link>
               <Link href="#why-choose-us" className="hover:text-gold transition-colors">Why Choose Us</Link>
-              <Link href="#why-choose-us" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
+              <Link href="http://ardglobal.app.n8n.cloud/form/65e79c2f-282f-4966-bde4-96a2a19e6c41" target="_blank" rel="noopener noreferrer" className="focus-ring shine inline-flex items-center gap-2 rounded-md bg-gold px-4 py-2 text-black font-medium hover:bg-[var(--gold-600)] transition-colors">
                 Get Started
               </Link>
             </nav>
